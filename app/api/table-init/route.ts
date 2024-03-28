@@ -1,6 +1,12 @@
-import { sql } from '@vercel/postgres';
+import { sql, QueryResult  } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
+interface TableInfo {
+  table_name: string;
+}
 
+interface ColumnInfo {
+  column_name: string;
+}
 export async function GET(request: Request) {
   try {
     await sql`
@@ -41,9 +47,29 @@ export async function GET(request: Request) {
         PRIMARY KEY(TicketID)
       );
     `;
-    return NextResponse.json({ message: 'Tables created successfully' }, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-}
+        // Query to get all tables
+        const tablesResult: QueryResult<TableInfo> = await sql`
+            SELECT table_name
+            FROM information_schema.tables
+            WHERE table_schema = 'public'
+            AND table_type = 'BASE TABLE';
+        `;
 
+        const tables: string[] = tablesResult.rows.map(row => row.table_name);
+
+        // Fetch column names for each table
+        const columnsByTable: { [tableName: string]: string[] } = {};
+        for (const tableName of tables) {
+            const columnsResult: QueryResult<ColumnInfo> = await sql`
+                SELECT column_name
+                FROM information_schema.columns
+                WHERE table_name = ${tableName};
+            `;
+            columnsByTable[tableName] = columnsResult.rows.map(row => row.column_name);
+        }
+
+        return NextResponse.json({ columnsByTable }, { status: 200 });
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
