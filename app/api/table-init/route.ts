@@ -1,5 +1,6 @@
 import { sql, QueryResult  } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
+
 interface TableInfo {
   table_name: string;
 }
@@ -12,39 +13,42 @@ export async function GET(request: Request) {
     await sql`
       CREATE TABLE IF NOT EXISTS Customers (
         CustomerID SERIAL PRIMARY KEY,
-        Name VARCHAR(255),
+        Name VARCHAR(255) NOT NULL,
         YearDOB INT,
-        Email VARCHAR(255),
-        PRIMARY KEY(CustomerID)
+        Email VARCHAR(255) NOT NULL UNIQUE
       );
     `;
 
     await sql` 
       CREATE TABLE IF NOT EXISTS Bookings (
+        BookingID SERIAL PRIMARY KEY,
         CustomerID INT,
         TrainID INT,
-        TicketID INT
+        TicketID INT,
+        FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
+        FOREIGN KEY (TrainID) REFERENCES Trains (TrainID),
+        FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID)
       );
     `;
 
     await sql`
       CREATE TABLE IF NOT EXISTS Tickets (
+        TicketID SERIAL PRIMARY KEY,
         TrainID INT,
-        Type VARCHAR(255),
-        Seat_Quantity INT,
-        PRIMARY KEY(TrainID)
+        Origin VARCHAR(255),
+        Destination VARCHAR(255),
+        Departure_Time TIMESTAMP,
+        Arrival_Time TIMESTAMP,
+        Available INT,
+        FOREIGN KEY (TrainID) REFERENCES Trains (TrainID)
       );
     `;
 
     await sql`
       CREATE TABLE IF NOT EXISTS Trains (
-        TicketID INT,
-        Destination VARCHAR(255),
-        Departure_Time TIMESTAMP,
-        Arrival_Time TIMESTAMP,
-        Available INT,
-        Origin VARCHAR(255),
-        PRIMARY KEY(TicketID)
+        TrainID SERIAL PRIMARY KEY, 
+        Type VARCHAR(255),
+        Seat_Quantity INT
       );
     `;
         // Query to get all tables
