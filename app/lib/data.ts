@@ -7,10 +7,11 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
+  Bookings, 
 } from './definitions';
 import { formatCurrency } from './utils';
 
-export async function fetchRevenue() {
+export async function fetchBookings() {
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
 
@@ -21,7 +22,7 @@ export async function fetchRevenue() {
     // console.log('Fetching revenue data...');
     // await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
+    const data = await sql<Bookings>`SELECT * FROM Bookings`;
 
     // console.log('Data fetch completed after 3 seconds.');
 
