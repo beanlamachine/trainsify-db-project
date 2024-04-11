@@ -1,7 +1,8 @@
-//import { sql } from '@vercel/postgres';
-const { sql } = require('@vercel/postgres');
+import { sql } from '@vercel/postgres';
+import { NextResponse } from 'next/server';
 
-async function seedData() {
+export async function GET(request: Request) {
+
   try {
     // Insert data into the Customers table
     await sql`
@@ -38,12 +39,16 @@ async function seedData() {
     `;
 
     console.log('Data seeding completed successfully.');
+
+    const Customers = await sql`SELECT * FROM Customers;`;
+    const Trains = await sql`SELECT * FROM Trains;`;
+    const Tickets = await sql`SELECT * FROM Tickets;`;
+    const Bookings = await sql`SELECT * FROM Bookings;`;
+
+    return NextResponse.json({ Customers, Trains, Tickets, Bookings }, { status: 200 });
+
   } catch (error) {
-    console.error('Error seeding data:', error);
-    throw error;
+    console.error('Data seeding failed:', error);
+    return NextResponse.json({ error: 'Data seeding failed' }, { status: 500 });
   }
 }
-
-seedData().catch((err) => {
-  console.error('An error occurred while attempting to seed the database:', err);
-});
