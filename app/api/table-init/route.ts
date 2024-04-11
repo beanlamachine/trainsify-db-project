@@ -29,6 +29,14 @@ export async function GET(request: Request) {
         FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID)
       );
     `;
+    
+    await sql`
+      CREATE TABLE IF NOT EXISTS Trains (
+        TrainID SERIAL PRIMARY KEY,        
+        Type VARCHAR(255),       
+        Seat_Quantity INT
+      );
+    `;
 
     await sql`
       CREATE TABLE IF NOT EXISTS Tickets (
@@ -40,14 +48,6 @@ export async function GET(request: Request) {
         Arrival_Time TIMESTAMP,
         Available INT,
         FOREIGN KEY (TrainID) REFERENCES Trains (TrainID)
-      );
-    `;
-
-    await sql`
-      CREATE TABLE IF NOT EXISTS Trains (
-        TrainID SERIAL PRIMARY KEY,        
-        Type VARCHAR(255),       
-        Seat_Quantity INT
       );
     `;
         // Query to get all tables
