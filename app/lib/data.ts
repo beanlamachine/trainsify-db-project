@@ -8,60 +8,30 @@ import {
   User,
   Revenue,
   Bookings, 
-  Trains,
-  Customers
 } from './definitions';
 import { formatCurrency } from './utils';
 
 export async function fetchBookings() {
+  // Add noStore() here to prevent the response from being cached.
+  // This is equivalent to in fetch(..., {cache: 'no-store'}).
+
   try {
+    // Artificially delay a response for demo purposes.
+    // Don't do this in production :)
+
+    // console.log('Fetching revenue data...');
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Bookings>`SELECT * FROM Bookings`;
+
+    // console.log('Data fetch completed after 3 seconds.');
+
     return data.rows;
-
   } catch (error) {
-
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch bookings data.');
-
+    throw new Error('Failed to fetch revenue data.');
   }
 }
-
-export async function fetchTrains() {
-  try {
-
-    const data = await sql<Trains>`SELECT * FROM Trains`;
-    return data.rows;
-
-  } catch (error) {
-
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch trains data.');
-
-  }
-}
-
-export async function fetchCustomers() {
-  try {
-
-    const data = await sql<Customers>`SELECT * FROM Customers`;
-    return data.rows;
-
-  } catch (error) {
-
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch customers data.');
-
-  }
-}
-
-
-
-
-
-
-
-
 
 export async function fetchLatestInvoices() {
   try {
@@ -200,7 +170,7 @@ export async function fetchInvoiceById(id: string) {
   }
 }
 
-/*export async function fetchCustomers() {
+export async function fetchCustomers() {
   try {
     const data = await sql<CustomerField>`
       SELECT
@@ -216,7 +186,7 @@ export async function fetchInvoiceById(id: string) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
   }
-}*/
+}
 
 export async function fetchFilteredCustomers(query: string) {
   try {
