@@ -2,6 +2,37 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
+export type Bookings = {
+  bookingid: number;
+  customerid: number;
+  trainid: number;
+  ticketid: number;
+}
+
+export type Trains = {
+  trainid: number;
+  type: string;
+  seat_quantity: number;
+}
+
+export type Tickets = {
+  ticketid: number;
+  trainid: number;
+  origin: string;
+  destination: string;
+  departure_time: string;
+
+}
+
+export type Customers = {
+  customerid: number;
+  name: string;
+  yeardob: number;
+  email: string;
+}
+
+//below is sample types... use as reference
+
 export type User = {
   id: string;
   name: string;
