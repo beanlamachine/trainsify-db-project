@@ -9,8 +9,7 @@ import {
   Revenue,
   Bookings, 
   Trains,
-  Customers,
-  Tickets
+  Customers
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -56,21 +55,12 @@ export async function fetchCustomers() {
   }
 }
 
-export async function fetchTickets() {
-  try {
 
-    const data = await sql<Tickets>`SELECT * FROM Tickets`;
-    return data.rows;
 
-  } catch (error) {
 
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch tickets data.');
 
-  }
-}
 
-//sample functions below
+
 
 
 export async function fetchLatestInvoices() {
