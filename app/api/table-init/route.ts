@@ -15,7 +15,6 @@ export async function GET(request: Request) {
         Name VARCHAR(255),
         YearDOB INT,
         Email VARCHAR(255),
-        PRIMARY KEY(CustomerID)
       );
     `;
 
