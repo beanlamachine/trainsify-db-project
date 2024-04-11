@@ -14,6 +14,7 @@ export default function Page() {
                 <p>Customer ID: {booking.customerid}</p>
                 <p>Train ID: {booking.trainid}</p>
                 <p>Ticket ID: {booking.ticketid}</p>
+                <br />
               </div>
             ))}
           </div>
