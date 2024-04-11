@@ -14,7 +14,7 @@ export async function GET(request: Request) {
         CustomerID SERIAL PRIMARY KEY,
         Name VARCHAR(255),
         YearDOB INT,
-        Email VARCHAR(255),
+        Email VARCHAR(255)
       );
     `;
 
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
         TicketID INT,
         FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
         FOREIGN KEY (TrainID) REFERENCES Trains (TrainID),
-        FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID),
+        FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID)
       );
     `;
 
@@ -39,7 +39,7 @@ export async function GET(request: Request) {
         Departure_Time TIMESTAMP,
         Arrival_Time TIMESTAMP,
         Available INT,
-        FOREIGN KEY (TrainID) REFERENCES Trains (TrainID),
+        FOREIGN KEY (TrainID) REFERENCES Trains (TrainID)
       );
     `;
 
@@ -47,7 +47,7 @@ export async function GET(request: Request) {
       CREATE TABLE IF NOT EXISTS Trains (
         TrainID SERIAL PRIMARY KEY,        
         Type VARCHAR(255),       
-        Seat_Quantity INT,
+        Seat_Quantity INT
       );
     `;
         // Query to get all tables
