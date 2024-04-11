@@ -18,6 +18,14 @@ export async function GET(request: Request) {
       );
     `;
 
+    await sql`
+    CREATE TABLE IF NOT EXISTS Trains (
+      TrainID SERIAL PRIMARY KEY,        
+      Type VARCHAR(255),       
+      Seat_Quantity INT
+    );
+  `;
+
     await sql` 
       CREATE TABLE IF NOT EXISTS Bookings (
         BookingID SERIAL PRIMARY KEY,
@@ -27,14 +35,6 @@ export async function GET(request: Request) {
         FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
         FOREIGN KEY (TrainID) REFERENCES Trains (TrainID),
         FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID)
-      );
-    `;
-    
-    await sql`
-      CREATE TABLE IF NOT EXISTS Trains (
-        TrainID SERIAL PRIMARY KEY,        
-        Type VARCHAR(255),       
-        Seat_Quantity INT
       );
     `;
 
