@@ -10,7 +10,7 @@ import {
   Bookings, 
   Trains,
   Customers,
-  Tickets,
+  Tickets
 } from './definitions';
 import { formatCurrency } from './utils';
 
