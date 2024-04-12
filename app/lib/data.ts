@@ -7,28 +7,63 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
+  Bookings, 
+  Trains,
+  Tickets,
+  Customers,
 } from './definitions';
 import { formatCurrency } from './utils';
 
-export async function fetchRevenue() {
-  // Add noStore() here to prevent the response from being cached.
-  // This is equivalent to in fetch(..., {cache: 'no-store'}).
-
+export async function fetchData(): Promise<{
+  customers: CustomerField[];
+  trains: Trains[];
+  tickets: Tickets[];
+}> {
   try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
+    const [customersData, trainsData, ticketsData] = await Promise.all([
+      sql<CustomerField>`SELECT * FROM Customers`,
+      sql<Trains>`SELECT * FROM Trains`,
+      sql<Tickets>`SELECT * FROM Tickets`,
+    ]);
 
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    return {
+      customers: customersData.rows,
+      trains: trainsData.rows,
+      tickets: ticketsData.rows,
+    };
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch data.');
+  }
+}
 
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
-
-    // console.log('Data fetch completed after 3 seconds.');
-
+export async function fetchBookings() {
+  try {
+    const data = await sql<Bookings>`SELECT * FROM Bookings`;
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
+  }
+}
+
+export async function fetchTrains() {
+  try {
+    const data = await sql<Trains>`SELECT * FROM Trains`;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch trains data.');
+  }
+}
+
+export async function fetchCustomers() {
+  try {
+    const data = await sql<Customers>`SELECT * FROM Customers`;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch customers data.');
   }
 }
 
@@ -169,7 +204,7 @@ export async function fetchInvoiceById(id: string) {
   }
 }
 
-export async function fetchCustomers() {
+/*export async function fetchCustomers() {
   try {
     const data = await sql<CustomerField>`
       SELECT
@@ -185,7 +220,7 @@ export async function fetchCustomers() {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
   }
-}
+}*/
 
 export async function fetchFilteredCustomers(query: string) {
   try {
