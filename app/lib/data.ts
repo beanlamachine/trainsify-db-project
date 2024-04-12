@@ -47,6 +47,7 @@ export async function fetchBookings() {
   }
 }
 
+
 export async function fetchTrains() {
   try {
     const data = await sql<Trains>`SELECT * FROM Trains`;
