@@ -36,7 +36,7 @@ export default function EditInvoiceForm({
                 Select a customer
               </option>
               {customers.map((customer) => (
-                <option key={customer.id} value={customer.id}>
+                <option key={customer.customerid} value={customer.customerid}>
                   {customer.name}
                 </option>
               ))}
