@@ -1,4 +1,5 @@
 import { fetchBookings } from '@/app/lib/data';
+import Link from 'next/link';
 
 export default function Page() {
   async function fetchAndRenderData() {
@@ -6,6 +7,14 @@ export default function Page() {
       const bookingsData = await fetchBookings();
       return (
         <main>
+          <div>
+          <Link
+            href="/dashboard/Bookings/Create"
+            className="button"
+          >
+            <span>Create New Booking</span>
+          </Link>
+          </div> <br></br>
           <h1>Bookings</h1>
           <div>
             {bookingsData.map((booking) => (

@@ -1,4 +1,5 @@
 import { fetchCustomers } from '@/app/lib/data';
+import Link from 'next/link';
 
 export default function Page() {
   async function fetchAndRenderData() {
@@ -6,6 +7,14 @@ export default function Page() {
       const customersData = await fetchCustomers();
       return (
         <main>
+          <div>
+          <Link
+            href="/dashboard/Customers/Create"
+            className="button"
+          >
+            <span>Create New Customer</span>
+          </Link>
+          </div> <br></br>
           <h1>Customers</h1>
           <div>
             {customersData.map((customers) => (
