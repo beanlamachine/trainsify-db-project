@@ -77,6 +77,35 @@ export async function fetchCustomers() {
   }
 }
 
+export async function fetchCustomersByID(customerId: number): Promise<Customers | undefined> {
+  try {
+      const data = await sql<Customers>`SELECT * FROM Customers WHERE customerid = ${customerId}`;
+      if (data.rows.length > 0) {
+          return data.rows[0]; // Return the first customer found
+      } else {
+          return undefined;
+      }
+  } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch customers data.'); // Throw error if database query fails
+  } 
+}
+export async function editCustomer(updatedCustomer: Customers): Promise<void> {
+  try {
+    await sql.query(
+      `UPDATE Customers 
+       SET name = $1, yeardob = $2, email = $3
+       WHERE customerid = $4`,
+      [updatedCustomer.name, updatedCustomer.yeardob, updatedCustomer.email, updatedCustomer.customerid]
+  );
+
+  console.log('Customer updated successfully.');
+} catch (error) {
+  console.error('Error updating customer:', error);
+  throw new Error('Failed to update customer data.');
+}
+}
+
 export async function fetchLatestInvoices() {
   try {
     const data = await sql<LatestInvoiceRaw>`

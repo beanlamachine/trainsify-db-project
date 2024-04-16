@@ -1,6 +1,18 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
+export function UpdateCustomer({ customerid }: { customerid: number }) {
+  return (
+    <Link
+      href={`/dashboard/Customers/${customerid}/edit`}
+      className=""
+    >
+      <PencilIcon className="w-5" />
+    </Link>
+  );
+}
+
+
 export function CreateInvoice() {
   return (
     <Link

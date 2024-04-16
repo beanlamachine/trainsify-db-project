@@ -29,3 +29,14 @@ export async function createBooking(formData: FormData) {
     revalidatePath('/dashboard/Bookings');
     redirect('/dashboard/Bookings');
   }
+
+  export async function updateCustomer(id: number, formData: FormData) {
+    await sql.query(
+      `UPDATE Customers 
+       SET name = $1, yeardob = $2, email = $3
+       WHERE customerid = ${id}`,
+      [formData.get('name'), formData.get('yeardob'), formData.get('email')]
+  );
+  revalidatePath('/dashboard/Customers');
+  redirect('/dashboard/Customers');
+  }
