@@ -25,7 +25,7 @@ export type Tickets = {
 };
 
 export type Customers = {
-  customerid: string;
+  customerid: number;
   name: string;
   yeardob: number;
   email: string;
