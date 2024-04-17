@@ -12,6 +12,16 @@ export function UpdateCustomer({ customerid }: { customerid: number }) {
   );
 }
 
+export function DeleteCustomer({ customerid }: { customerid: number }) {
+  return (
+    <Link
+      href={`/dashboard/Customers/${customerid}/delete`}
+      className=""
+    >
+      <TrashIcon className="w-5" />
+    </Link>
+  );
+}
 
 export function CreateInvoice() {
   return (

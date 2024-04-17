@@ -1,6 +1,6 @@
 import { fetchCustomers } from '@/app/lib/data';
 import Link from 'next/link';
-import { UpdateCustomer } from '@/app/ui/invoices/buttons.tsx';
+import { UpdateCustomer, DeleteCustomer  } from '@/app/ui/invoices/buttons.tsx';
 
 export default function Page() {
   async function fetchAndRenderData() {
@@ -27,6 +27,7 @@ export default function Page() {
                 <p>Customer's Year of Birth: {customers.yeardob}</p>
                 <p>Customer's Email: {customers.email}</p>
                 <UpdateCustomer customerid={customers.customerid} />
+                <DeleteCustomer customerid={customers.customerid} />
                 <br />
               </div>
             ))}
