@@ -1,20 +1,20 @@
 import { fetchBookings } from '@/app/lib/data';
 import Link from 'next/link';
-import { revalidatePath } from 'next/cache';
 
 export default function Page() {
-  revalidatePath('/dashboard/Bookings');
   async function fetchAndRenderData() {
     try {
       const bookingsData = await fetchBookings();
       return (
         <main>
           <div>
-            <Link href="/dashboard/Bookings/Create" className="button">
-              <span>Create New Booking</span>
-            </Link>
-          </div>{' '}
-          <br></br>
+          <Link
+            href="/dashboard/Bookings/Create"
+            className="button"
+          >
+            <span>Create New Booking</span>
+          </Link>
+          </div> <br></br>
           <h1>Bookings</h1>
           <div>
             {bookingsData.map((booking) => (
