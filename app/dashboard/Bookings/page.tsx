@@ -1,7 +1,8 @@
 import { fetchBookings } from '@/app/lib/data';
 import Link from 'next/link';
-
+import { revalidatePath } from 'next/cache';
 export default function Page() {
+  revalidatePath('/dashboard/Bookings');
   async function fetchAndRenderData() {
     try {
       const bookingsData = await fetchBookings();

@@ -46,7 +46,7 @@ export async function GET(request: Request) {
         CustomerID INT,
         TrainID INT,
         TicketID INT,
-        FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
+        FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID) ON DELETE CASCADE,
         FOREIGN KEY (TrainID) REFERENCES Trains (TrainID),
         FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID)
       );
