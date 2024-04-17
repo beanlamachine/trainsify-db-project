@@ -40,3 +40,14 @@ export async function createBooking(formData: FormData) {
   revalidatePath('/dashboard/Customers');
   redirect('/dashboard/Customers');
   }
+
+  export async function deleteCustomer(customerId: number) {
+    console.log(customerId);
+    try {
+      await sql.query(`DELETE FROM Customers WHERE customerid = ${customerId}`);
+      revalidatePath('/dashboard/Customers');
+    } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to delete customer.');
+    }
+  }

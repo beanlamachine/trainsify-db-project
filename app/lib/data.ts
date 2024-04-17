@@ -13,16 +13,9 @@ import {
   Customers,
 } from './definitions';
 import { formatCurrency } from './utils';
+import { revalidatePath } from 'next/cache';
 
 
-export async function deleteCustomer(customerId: number): Promise<void> {
-  try {
-    await sql`DELETE FROM Customers WHERE customerid = ${customerId}`;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to delete customer.');
-  }
-}
 
 export async function fetchData(): Promise<{
   customers: CustomerField[];
