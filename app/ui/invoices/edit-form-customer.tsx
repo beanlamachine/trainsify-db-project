@@ -1,4 +1,4 @@
-
+import { CustomerField, Trains, Tickets, Customers } from '@/app/lib/definitions';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import {updateCustomer } from '@/app/lib/actions';

@@ -41,19 +41,19 @@ export async function GET(request: Request) {
 `;
 
     await sql` 
-    CREATE TABLE IF NOT EXISTS Bookings (
-      BookingID SERIAL PRIMARY KEY,
-      CustomerID INT,
-      TrainID INT,
-      TicketID INT,
-      FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID) ON DELETE CASCADE,
-      FOREIGN KEY (TrainID) REFERENCES Trains (TrainID),
-      FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID)
-  );
+      CREATE TABLE IF NOT EXISTS Bookings (
+        BookingID SERIAL PRIMARY KEY,
+        CustomerID INT,
+        TrainID INT,
+        TicketID INT,
+        FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
+        FOREIGN KEY (TrainID) REFERENCES Trains (TrainID),
+        FOREIGN KEY (TicketID) REFERENCES Tickets (TicketID)
+      );
     `;
 
     await sql`
-    CREATE TABLE IF NOT EXISTS Tickets (
+      CREATE TABLE IF NOT EXISTS Tickets (
         TicketID SERIAL PRIMARY KEY,
         TrainID INT,
         Origin VARCHAR(255),
@@ -62,15 +62,15 @@ export async function GET(request: Request) {
         Arrival_Time TIMESTAMP,
         Available INT,
         FOREIGN KEY (TrainID) REFERENCES Trains (TrainID)
-    );
+      );
     `;
 
     await sql`
-    CREATE TABLE IF NOT EXISTS Trains (
+      CREATE TABLE IF NOT EXISTS Trains (
         TrainID SERIAL PRIMARY KEY, 
         Type VARCHAR(255),
         Seat_Quantity INT
-    );
+      );
     `;
         // Query to get all tables
         const tablesResult: QueryResult<TableInfo> = await sql`

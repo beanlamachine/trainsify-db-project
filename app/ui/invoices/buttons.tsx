@@ -11,16 +11,6 @@ export function UpdateCustomer({ customerid }: { customerid: number }) {
     </Link>
   );
 }
-export function DeleteCustomer({ customerid }: { customerid: number }) {
-  return (
-    <Link
-      href={`/dashboard/Customers/${customerid}/delete`}
-      className=""
-    >
-      <TrashIcon className="w-5" />
-    </Link>
-  );
-}
 
 
 export function CreateInvoice() {
@@ -43,5 +33,16 @@ export function UpdateInvoice({ id }: { id: string }) {
     >
       <PencilIcon className="w-5" />
     </Link>
+  );
+}
+
+export function DeleteInvoice({ id }: { id: string }) {
+  return (
+    <>
+      <button className="rounded-md border p-2 hover:bg-gray-100">
+        <span className="sr-only">Delete</span>
+        <TrashIcon className="w-5" />
+      </button>
+    </>
   );
 }
