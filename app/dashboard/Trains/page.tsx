@@ -1,6 +1,8 @@
 import { fetchTrains } from '@/app/lib/data';
+import { revalidatePath } from 'next/cache';
 
 export default function Page() {
+  revalidatePath('/dashboard/Trains');
   async function fetchAndRenderData() {
     try {
       const trainsData = await fetchTrains();
