@@ -53,7 +53,16 @@ export async function fetchBookings() {
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
+    throw new Error('Failed to fetch bookings data.');
+  }
+}
+export async function fetchTickets() {
+  try {
+    const data = await sql<Tickets>`SELECT * FROM Tickets`;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tickets data.');
   }
 }
 

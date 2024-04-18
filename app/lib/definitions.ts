@@ -20,7 +20,10 @@ export type Tickets = {
   trainid: number;
   origin: string;
   destination: string;
-  departure_time: string;
+  departure_time: Date;
+  arrival_time: Date;
+  available: number;
+
 
 };
 

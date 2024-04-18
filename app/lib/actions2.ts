@@ -9,6 +9,9 @@ const CustomerSchema = z.object({
     name: z.string(),
     email: z.string().email(),
     yearOfBirth: z.number(),
+    origin: z.string(), 
+    destination: z.string(), 
+    departure_time: z.date(),
   });
 
 export async function createCustomer(formData: FormData) {
@@ -36,4 +39,20 @@ export async function createCustomer(formData: FormData) {
 
     revalidatePath('/dashboard/Customers');
     redirect('/dashboard/Customers');
+  }
+
+  export async function createTicket(formData: FormData) {
+    const { origin, destination, departure_time} = CustomerSchema.parse({
+      origin: formData.get('origin'),
+      destination: formData.get('destination'),
+      departure_time: formData.get('departure_time'),
+    });
+
+    await sql`
+    INSERT INTO tickets (origin, destination, departure_time)
+    VALUES (${origin}, ${destination}})
+  `;
+
+    revalidatePath('/dashboard/Tickets');
+    redirect('/dashboard/Tickets');
   }
