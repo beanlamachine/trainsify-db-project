@@ -9,13 +9,11 @@ export default function Page() {
       return (
         <main>
           <div>
-          <Link
-            href="/dashboard/Bookings/Create"
-            className="button"
-          >
-            <span>Create New Booking</span>
-          </Link>
-          </div> <br></br>
+            <Link href="/dashboard/Bookings/Create" className="button">
+              <span>Create New Booking</span>
+            </Link>
+          </div>{' '}
+          <br></br>
           <h1>Bookings</h1>
           <div>
             {bookingsData.map((booking) => (

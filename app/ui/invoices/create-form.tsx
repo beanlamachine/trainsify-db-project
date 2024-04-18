@@ -1,3 +1,5 @@
+'use client';
+
 import { CustomerField, Trains, Tickets } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
@@ -7,14 +9,13 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import {createBooking } from '@/app/lib/actions';
+import { createBooking } from '@/app/lib/actions';
 
 interface FormProps {
   customers: CustomerField[];
   trains: Trains[];
   tickets: Tickets[];
 }
-
 
 export default function Form({ customers, trains, tickets }: FormProps) {
   return (
@@ -98,7 +99,7 @@ export default function Form({ customers, trains, tickets }: FormProps) {
           </div>
         </div>
       </div>
-        
+
       <div className="mt-6 flex justify-end gap-4">
         <Link
           href="/dashboard/Bookings"
