@@ -6,7 +6,7 @@ export default function Page() {
       const trainsData = await fetchTrains();
       return (
         <main>
-          <h1>Trains</h1>
+          <h1>Trains</h1><br />
           <div>
             {trainsData.map((trains) => (
               <div key={trains.trainid}>

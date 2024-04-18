@@ -15,7 +15,7 @@ export default function Page() {
             </Link>
           </div>{' '}
           <br></br>
-          <h1>Customers</h1>
+          <h1>Customers</h1><br />
           <div>
             {customersData.map((customers) => (
               <div key={customers.customerid}>
