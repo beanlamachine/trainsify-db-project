@@ -29,15 +29,15 @@ export async function createCustomer(formData: FormData) {
 
 
     const result = await sql`
-      SELECT 1 FROM customers WHERE email = ${email}
+      SELECT email FROM customers WHERE email = ${email}
     `;
 
     // If the query returns any rows, the email already exists
     if (result.rowCount > 0) {
       // Email already exists, throw an error
-      throw new Error('Email already in database');
-    }
-
+      return console.log("email exits");
+    }else
+    {
     await sql`
     INSERT INTO customers (name, email, yeardob)
     VALUES (${name}, ${email}, ${yearOfBirth})
@@ -45,7 +45,7 @@ export async function createCustomer(formData: FormData) {
 
     revalidatePath('/dashboard/Customers');
     redirect('/dashboard/Customers');
-  }
+  }}
 
   export async function createTicket(formData: FormData) {
     try {

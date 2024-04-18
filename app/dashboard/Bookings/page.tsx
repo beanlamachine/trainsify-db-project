@@ -25,7 +25,7 @@ export default function Page() {
             <span>Search for bookings</span>
           </Link>
           </div> <br></br>
-          <h1>Bookings</h1>
+          <h1>Bookings</h1><br />
           <div>
             {bookingsData.map((booking) => (
               <div key={booking.bookingid}>
