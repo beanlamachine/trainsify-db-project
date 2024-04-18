@@ -14,7 +14,10 @@ const CustomerSchema = z.object({
 const TicketSchema = z.object ({
   origin: z.string(), 
   destination: z.string(), 
-  departure_time: z.date(),
+  departure_time: z.string(),
+  arrival_time: z.string(),
+  available: z.number(), 
+  trainid:  z.number(), 
 })
 
 export async function createCustomer(formData: FormData) {
@@ -45,17 +48,37 @@ export async function createCustomer(formData: FormData) {
   }
 
   export async function createTicket(formData: FormData) {
-    const { origin, destination, departure_time} = TicketSchema.parse({
-      origin: formData.get('origin'),
-      destination: formData.get('destination'),
-      departure_time: formData.get('departure_time'),
-    });
+    try {
+      const { origin, destination, departure_time, trainid, arrival_time, available } = TicketSchema.parse({
+        origin: formData.get('origin'),
+        destination: formData.get('destination'),
+        departure_time: formData.get('departure_time'),
+        arrival_time: formData.get('arrival_time'),
+        trainid: Number(formData.get('trainid')),
+        available: Number(formData.get('available')),
+      });
+  
+      // Ensure departure_time is parsed into a Date object
+      const parsedDepartureTime = new Date(departure_time);
+      const parsedArrivalTime = new Date(arrival_time);
 
-    await sql`
-    INSERT INTO tickets (origin, destination, departure_time)
-    VALUES (${origin}, ${destination}})
-  `;
-
-    revalidatePath('/dashboard/Tickets');
-    redirect('/dashboard/Tickets');
+  
+      // Convert departure_time to a string representation
+      const formattedDepartureTime = parsedDepartureTime.toISOString();
+      const formattedArrivalTime = parsedArrivalTime.toISOString();
+  
+      // Insert into the database
+      await sql`
+        INSERT INTO tickets (TrainID, Origin, Destination, Departure_Time, Arrival_Time, Available)
+        VALUES (${trainid}, ${origin}, ${destination}, ${formattedDepartureTime}, ${formattedArrivalTime}, ${available})
+      `;
+  
+      // After successful insertion, revalidate and redirect
+      revalidatePath('/dashboard/Tickets');
+    
+    } catch (error) {
+      // Handle validation errors or SQL errors
+      console.error('Error creating ticket:', error);
+      // Handle error appropriately, such as showing a message to the user
+    }  redirect('/dashboard/Tickets');
   }
