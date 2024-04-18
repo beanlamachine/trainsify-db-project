@@ -46,19 +46,19 @@ export async function countBookingsByCustomerId(customerId: number): Promise<num
 export async function countAssociatedBookingwithTickets(ticketID: number): Promise<number> {
   try {
     const data = await sql<{ count: number }>`
-      SELECT Tickets.TicketID, COUNT(Bookings.BookingID) AS BookingCount
-      FROM Tickets
-      LEFT JOIN Bookings ON Tickets.TicketID = Bookings.TicketID
-      WHERE Tickets.TicketID = ${ticketID}
-      GROUP BY Tickets.TicketID;
+      SELECT COUNT(*) AS count
+      FROM Bookings
+      WHERE TicketID = ${ticketID};
     `;
     const count: number = data.rows[0]?.count || 0; 
+    console.log(count);
     return count;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to count bookings.');
   }
 }
+
 
 
 export async function deleteCustomer(customerId: number): Promise<void> {

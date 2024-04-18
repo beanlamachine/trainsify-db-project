@@ -1,11 +1,12 @@
 import { fetchData } from '@/app/lib/data';
 import Link from 'next/link';
 import { revalidatePath } from 'next/cache';
+import { countAssociatedBookingwithTickets } from '@/app/lib/data'; // Importing the function
+
 export default function Page() {
   async function fetchAndRenderData() {
     revalidatePath('/dashboard/Tickets');
     try {
-      //const ticketsData = await fetchTickets();
       const { customers, trains, tickets } = await fetchData();
       return (
         <main>
@@ -18,15 +19,19 @@ export default function Page() {
           <h1>Tickets</h1>
           <br />
           <div>
-            {tickets.map((t) => {
+            {tickets.map(async (t) => {
+              // Mapping asynchronously
               const foundTrain = trains.find(
                 (train) => train.trainid === t.trainid,
               );
+              const bookingCount = await countAssociatedBookingwithTickets(
+                t.ticketid,
+              ); // Fetching booking count
               return (
                 <div key={t.ticketid}>
                   <p>Ticket's ID: {t.ticketid}</p>
                   {foundTrain ? (
-                    <p>Trains's Type: {foundTrain.type}</p>
+                    <p>Train's Type: {foundTrain.type}</p>
                   ) : (
                     <p>Train not found</p>
                   )}
@@ -41,6 +46,8 @@ export default function Page() {
                     {t.arrival_time.toTimeString()}
                   </p>
                   <p>Available: {t.available}</p>
+                  <p>Bookings Count: {bookingCount}</p>{' '}
+                  {/* Displaying booking count */}
                   <br />
                 </div>
               );
