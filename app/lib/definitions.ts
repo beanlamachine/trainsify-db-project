@@ -26,6 +26,9 @@ export type Tickets = {
 
 
 };
+export type TotalBookings ={
+  total: number;
+}
 
 export type Customers = {
   customerid: number;

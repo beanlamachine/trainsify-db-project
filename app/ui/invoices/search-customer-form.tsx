@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { fetchBookingsByID } from '@/app/lib/data';
-import { Bookings } from '@/app/lib/definitions'; 
+import { fetchBookingsByID, countBookingsByCustomerId } from '@/app/lib/data';
+import { Bookings } from '@/app/lib/definitions';
 import { CustomerField, Trains, Tickets } from '@/app/lib/definitions';
-
 
 interface FormProps {
   customers: CustomerField[];
@@ -14,23 +13,32 @@ interface FormProps {
 }
 
 export default function Form({ customers }: FormProps) {
-  const [selectedCustomerId, setSelectedCustomerId] = useState<number | undefined>(undefined);
+  const [selectedCustomerId, setSelectedCustomerId] = useState<
+    number | undefined
+  >(undefined);
   const [bookingsData, setBookingsData] = useState<Bookings[]>([]);
+  const [totalBookings, setTotalBookings] = useState<number>(0);
 
   useEffect(() => {
-    const fetchBookings = async () => {
+    const fetchData = async () => {
       if (selectedCustomerId !== undefined) {
-        const data = await fetchBookingsByID(selectedCustomerId);
-        setBookingsData(data.rows); 
+        const bookings = await fetchBookingsByID(selectedCustomerId);
+        setBookingsData(bookings.rows);
+
+        // Fetch and set the total number of bookings
+        const total = await countBookingsByCustomerId(selectedCustomerId);
+        setTotalBookings(total);
       }
     };
 
-    fetchBookings();
+    fetchData();
   }, [selectedCustomerId]);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const name = event.target.value;
-    const selectedCustomer = customers.find(customer => customer.name === name);
+    const selectedCustomer = customers.find(
+      (customer) => customer.name === name,
+    );
     if (selectedCustomer) {
       setSelectedCustomerId(selectedCustomer.customerid);
     } else {
@@ -72,7 +80,12 @@ export default function Form({ customers }: FormProps) {
           </div>
         </div>
       </form>
-
+      <div>
+        {/* Display total number of bookings */}
+        {selectedCustomerId !== undefined && (
+          <p>Total Bookings: {totalBookings}</p> 
+        )}
+      </div><br />
       <div>
         {bookingsData.map((booking) => (
           <div key={booking.bookingid}>

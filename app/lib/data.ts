@@ -1,6 +1,6 @@
 'use server';
 
-import { sql } from '@vercel/postgres';
+import { sql,  } from '@vercel/postgres';
 import {
   CustomerField,
   CustomersTableType,
@@ -13,6 +13,7 @@ import {
   Trains,
   Tickets,
   Customers,
+  TotalBookings,
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -24,6 +25,38 @@ export async function fetchBookingsByID(customerId: number) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch bookings data.');
+  }
+}
+
+export async function countBookingsByCustomerId(customerId: number): Promise<number> {
+  try {
+    const data = await sql<{ count: number }>`
+      SELECT COUNT(*) AS count
+      FROM Bookings
+      WHERE customerid = ${customerId};
+    `;
+    const count: number = data.rows[0].count;
+    return count;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to count bookings.');
+  }
+}
+
+export async function countAssociatedBookingwithTickets(ticketID: number): Promise<number> {
+  try {
+    const data = await sql<{ count: number }>`
+      SELECT Tickets.TicketID, COUNT(Bookings.BookingID) AS BookingCount
+      FROM Tickets
+      LEFT JOIN Bookings ON Tickets.TicketID = Bookings.TicketID
+      WHERE Tickets.TicketID = ${ticketID}
+      GROUP BY Tickets.TicketID;
+    `;
+    const count: number = data.rows[0]?.count || 0; 
+    return count;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to count bookings.');
   }
 }
 
