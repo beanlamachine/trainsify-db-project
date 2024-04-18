@@ -14,7 +14,7 @@ export default async function Page() {
           { label: 'Bookings', href: '/dashboard/Bookings' },
           {
             label: 'Create Booking',
-            href: '/dashboard/Bookings/Create',
+            href: 'app/dashboard/Bookings/Create',
             active: true,
           },
         ]}
