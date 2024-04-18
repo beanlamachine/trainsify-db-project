@@ -9,10 +9,13 @@ const CustomerSchema = z.object({
     name: z.string(),
     email: z.string().email(),
     yearOfBirth: z.number(),
-    origin: z.string(), 
-    destination: z.string(), 
-    departure_time: z.date(),
   });
+
+const TicketSchema = z.object ({
+  origin: z.string(), 
+  destination: z.string(), 
+  departure_time: z.date(),
+})
 
 export async function createCustomer(formData: FormData) {
     const { name, email, yearOfBirth} = CustomerSchema.parse({
@@ -42,7 +45,7 @@ export async function createCustomer(formData: FormData) {
   }
 
   export async function createTicket(formData: FormData) {
-    const { origin, destination, departure_time} = CustomerSchema.parse({
+    const { origin, destination, departure_time} = TicketSchema.parse({
       origin: formData.get('origin'),
       destination: formData.get('destination'),
       departure_time: formData.get('departure_time'),
