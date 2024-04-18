@@ -16,6 +16,15 @@ export default function Page() {
             <span>Create New Booking</span>
           </Link>
           </div> <br></br>
+
+          <div>
+          <Link
+            href="/dashboard/Bookings/Search"
+            className="button"
+          >
+            <span>Search for bookings</span>
+          </Link>
+          </div> <br></br>
           <h1>Bookings</h1>
           <div>
             {bookingsData.map((booking) => (

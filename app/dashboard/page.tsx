@@ -4,11 +4,11 @@ export default function Page() {
   return (
     <div>
       <p>Dashboard Page</p>
-      <Image 
+      <Image
         src="/Trainsify_Logo.png"
         width={500}
-        height={500} 
-        alt="Picture of the author" 
+        height={500}
+        alt="trainsify logo"
       />
     </div>
   );

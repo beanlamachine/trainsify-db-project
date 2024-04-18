@@ -1,3 +1,5 @@
+'use server';
+
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
@@ -13,6 +15,17 @@ import {
   Customers,
 } from './definitions';
 import { formatCurrency } from './utils';
+
+export async function fetchBookingsByID(customerId: number) {
+  console.log(customerId);
+  try {
+    const data = await sql<Bookings>`SELECT * FROM Bookings WHERE customerid = ${customerId}`;
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch bookings data.');
+  }
+}
 
 
 export async function deleteCustomer(customerId: number): Promise<void> {
