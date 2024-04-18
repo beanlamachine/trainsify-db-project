@@ -1,6 +1,5 @@
-import { fetchTickets, fetchData } from '@/app/lib/data';
+import { fetchData } from '@/app/lib/data';
 import Link from 'next/link';
-import { UpdateCustomer, DeleteCustomer } from '@/app/ui/invoices/buttons.tsx';
 import { revalidatePath } from 'next/cache';
 export default function Page() {
   async function fetchAndRenderData() {
