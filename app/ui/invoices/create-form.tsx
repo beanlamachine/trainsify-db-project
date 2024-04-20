@@ -1,3 +1,5 @@
+'use client';
+
 import { CustomerField, Trains, Tickets } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
@@ -8,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import {createBooking } from '@/app/lib/actions';
-
+import React, { useState, useEffect } from 'react';
 interface FormProps {
   customers: CustomerField[];
   trains: Trains[];
@@ -17,6 +19,18 @@ interface FormProps {
 
 
 export default function Form({ customers, trains, tickets }: FormProps) {
+  const [selectedTrainId, setSelectedTrainId] = useState('');
+  const [filteredTickets, setFilteredTickets] = useState<Tickets[]>([]);
+
+  useEffect(() => {
+    if (selectedTrainId) {
+      const validTickets = tickets.filter(ticket => ticket.trainid === parseInt(selectedTrainId));
+      setFilteredTickets(validTickets);
+    } else {
+      setFilteredTickets([]);
+    }
+  }, [selectedTrainId, tickets]);
+
   return (
     <form action={createBooking}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -57,6 +71,7 @@ export default function Form({ customers, trains, tickets }: FormProps) {
               name="trainid"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               defaultValue=""
+              onChange={e => setSelectedTrainId(e.target.value)}
             >
               <option value="" disabled>
                 Select a train
@@ -86,13 +101,15 @@ export default function Form({ customers, trains, tickets }: FormProps) {
               <option value="" disabled>
                 Select a ticket
               </option>
-              {tickets.map((ticket) => (
-                <option key={ticket.ticketid} value={ticket.ticketid}>
-                  {ticket.origin}
-                  {ticket.destination}
-                  {new Date(ticket.departure_time).toLocaleString()}
-                </option>
-              ))}
+              {filteredTickets.length > 0 ? (
+                filteredTickets.map((ticket) => (
+                  <option key={ticket.ticketid} value={ticket.ticketid}>
+                    {ticket.origin} to {ticket.destination} on {new Date(ticket.departure_time).toLocaleString()}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No tickets available for selected train</option>
+              )}
             </select>
             <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
@@ -101,7 +118,7 @@ export default function Form({ customers, trains, tickets }: FormProps) {
         
       <div className="mt-6 flex justify-end gap-4">
         <Link
-          href="/dashboard/Bookings"
+          href="/dashboard/Bookings/create"
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
         >
           Cancel

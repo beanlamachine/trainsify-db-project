@@ -26,6 +26,7 @@ export type Tickets = {
 
 
 };
+
 export type TotalBookings ={
   total: number;
 }

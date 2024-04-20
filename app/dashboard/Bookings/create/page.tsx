@@ -4,7 +4,7 @@ import { fetchData } from '@/app/lib/data';
 import { revalidatePath } from 'next/cache';
 
 export default async function Page() {
-  revalidatePath('/dashboard/Bookings/Create');
+  revalidatePath('/dashboard/Bookings/create');
   const { customers, trains, tickets } = await fetchData();
 
   return (
@@ -14,7 +14,7 @@ export default async function Page() {
           { label: 'Bookings', href: '/dashboard/Bookings' },
           {
             label: 'Create Booking',
-            href: '/dashboard/Bookings/Create',
+            href: '/dashboard/Bookings/create',
             active: true,
           },
         ]}

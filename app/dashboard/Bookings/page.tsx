@@ -10,7 +10,7 @@ export default function Page() {
         <main>
           <div>
           <Link
-            href="/dashboard/Bookings/Create"
+            href="/dashboard/Bookings/create"
             className="button"
           >
             <span>Create New Booking</span>
