@@ -8,32 +8,49 @@ export default function Page() {
       const bookingsData = await fetchBookings();
       return (
         <main>
-          <div>
-          <Link
-            href="/dashboard/Bookings/create"
-            className="button"
-          >
-            <span>Create New Booking</span>
-          </Link>
-          </div> <br></br>
+          <div className="top" >
+          <h1 className="Text_Large">Bookings</h1>
+          <div className="top">
+            <div className="">
+              <Link
+                href="/dashboard/Bookings/create"
+                className="button"
+              >
+                <span>Create New Booking</span>
+              </Link>
+            </div>
 
-          <div>
-          <Link
-            href="/dashboard/Bookings/Search"
-            className="button"
-          >
-            <span>Search for bookings</span>
-          </Link>
-          </div> <br></br>
-          <h1>Bookings</h1><br />
-          <div>
+            <div className="">
+              <Link
+                href="/dashboard/Bookings/Search"
+                className="button"
+              >
+                <span>Search by Customer</span>
+              </Link>
+            </div>
+            </div>
+          </div>
+          
+          <div className="Showing">
             {bookingsData.map((booking) => (
-              <div key={booking.bookingid}>
-                <p>Booking ID: {booking.bookingid}</p>
-                <p>Customer ID: {booking.customerid}</p>
-                <p>Train ID: {booking.trainid}</p>
-                <p>Ticket ID: {booking.ticketid}</p>
-                <br />
+              <div className="Showing_Tile" key={booking.bookingid}>
+                <div className="Tile_Header">Booking ID: &nbsp; {booking.bookingid}</div>
+                <table className="Showing_Table">
+                    <tbody>
+                    <tr className="">
+                      <td className="">Customer ID: </td>
+                      <td> &nbsp;{booking.customerid}&nbsp;</td>
+                    </tr>
+                    <tr className="">
+                      <td>Train ID: </td>
+                      <td>&nbsp;{booking.trainid}&nbsp;</td>
+                    </tr>
+                    <tr className="">
+                      <td>Ticket ID:</td>
+                      <td>&nbsp;{booking.ticketid}&nbsp;</td>
+                    </tr>
+                </tbody>
+                </table>
               </div>
             ))}
           </div>
