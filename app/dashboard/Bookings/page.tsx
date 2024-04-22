@@ -9,7 +9,7 @@ export default function Page() {
       return (
         <main>
           <div className="top" >
-          <h1 className="Text_Large">Bookings</h1>
+          <h1>Bookings</h1>
           <div className="top">
             <div className="">
               <Link

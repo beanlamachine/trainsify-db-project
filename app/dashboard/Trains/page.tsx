@@ -6,14 +6,25 @@ export default function Page() {
       const trainsData = await fetchTrains();
       return (
         <main>
-          <h1>Trains</h1><br />
-          <div>
+          <div className='top'>
+          <h1>Train Types</h1>
+          </div>
+          <div className="Showing">
             {trainsData.map((trains) => (
-              <div key={trains.trainid}>
-                <p>Train ID: {trains.trainid}</p>
-                <p>Train Type: {trains.type}</p>
-                <p>Seat Quantity: {trains.seat_quantity}</p>
-                <br />
+              <div className="Showing_Tile" key={trains.trainid}>
+                <div className="Tile_Header">&nbsp;{trains.type}&nbsp;Train</div>
+                <table className="Showing_Table">
+                  <tbody>
+                  <tr>
+                    <td>Train ID: </td>
+                    <td>{trains.trainid}</td>
+                  </tr>
+                  <tr>
+                  <td>Seat Quantity:</td>
+                  <td>&nbsp;{trains.seat_quantity}&nbsp;</td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
             ))}
           </div>

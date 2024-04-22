@@ -71,7 +71,7 @@ export default function Form({ customers }: FormProps) {
                 </option>
                 {customers.map((customer) => (
                   <option key={customer.customerid} value={customer.name}>
-                    {customer.name} ({customer.email})
+                    {customer.name} ({customer.email}, ID: {customer.customerid})
                   </option>
                 ))}
               </select>
@@ -83,17 +83,25 @@ export default function Form({ customers }: FormProps) {
       <div>
         {/* Display total number of bookings */}
         {selectedCustomerId !== undefined && (
-          <p>Total Bookings: {totalBookings}</p> 
+          <div className='mt-5'>Total Bookings: {totalBookings}</div> 
         )}
-      </div><br />
-      <div>
+      </div>
+      <div className='Showing'>
         {bookingsData.map((booking) => (
-          <div key={booking.bookingid}>
-            <p>Booking ID: {booking.bookingid}</p>
-            <p>Customer ID: {booking.customerid}</p>
-            <p>Train ID: {booking.trainid}</p>
-            <p>Ticket ID: {booking.ticketid}</p>
-            <br />
+          <div className='Showing_Tile' key={booking.bookingid}>
+            <div className='Tile_Header'>Booking ID: {booking.bookingid}</div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Train ID:</td>
+                  <td>{booking.trainid}</td>
+                </tr>
+                <tr>
+                  <td>Ticket ID:</td>
+                  <td> {booking.ticketid}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         ))}
       </div>

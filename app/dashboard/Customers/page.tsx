@@ -9,23 +9,39 @@ export default function Page() {
       const customersData = await fetchCustomers();
       return (
         <main>
-          <div>
-            <Link href="/dashboard/Customers/Create" className="button">
+          <div className="top">
+          <h1>Customers</h1>
+          <div className='top'>
+            <Link href="/dashboard/Customers/create" className="button h-10">
               <span>Create New Customer</span>
             </Link>
-          </div>{' '}
-          <br></br>
-          <h1>Customers</h1><br />
-          <div>
+          </div>
+          </div>
+          
+          <div className='Showing'>
             {customersData.map((customers) => (
-              <div key={customers.customerid}>
-                <p>Customer's ID: {customers.customerid}</p>
-                <p>Customer's Name: {customers.name}</p>
-                <p>Customer's Year of Birth: {customers.yeardob}</p>
-                <p>Customer's Email: {customers.email}</p>
-                <UpdateCustomer customerid={customers.customerid} />
-                <DeleteCustomer customerid={customers.customerid} />
-                <br />
+              <div className='Showing_Tile' key={customers.customerid}>
+                <div className="Tile_Header">{customers.name}</div>
+                <table className='Showing_Table'>
+                  <tbody>
+                    <tr>
+                      <td>ID:</td>
+                      <td>{customers.customerid}</td>
+                    </tr>
+                    <tr>
+                      <td>Year of Birth:</td>
+                      <td>{customers.yeardob}</td>
+                    </tr>
+                    <tr>
+                      <td>Email:</td>
+                      <td className=''>{customers.email}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className='top mt-4 mb-2'>
+                    <UpdateCustomer customerid={customers.customerid} />
+                    <DeleteCustomer customerid={customers.customerid} />
+                    </div>
               </div>
             ))}
           </div>
