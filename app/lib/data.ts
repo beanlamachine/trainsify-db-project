@@ -28,6 +28,24 @@ export async function fetchBookingsByID(customerId: number) {
   }
 }
 
+
+export async function fetchTicketInfoByBookingID(bookingID: number) {
+  console.log(bookingID);
+  try {
+    const data = await sql<Tickets>`
+      SELECT * FROM Tickets 
+      WHERE TicketID IN (
+        SELECT TicketID FROM Bookings WHERE BookingID = ${bookingID}
+      )
+    `;
+    console.log(data.rows);
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch tickets data.');
+  }
+}
+
 export async function countBookingsByCustomerId(customerId: number): Promise<number> {
   try {
     const data = await sql<{ count: number }>`
@@ -59,7 +77,40 @@ export async function countAssociatedBookingwithTickets(ticketID: number): Promi
   }
 }
 
+export async function fetchConnectingTicketswithBookingID(bookingID: number): Promise<Tickets[]> {
+  try {
+    console.log('BookingID:', bookingID);
+    const data = await sql<Tickets>`
+    SELECT t2.*
+    FROM Tickets t1
+    JOIN Tickets t2 ON t1.Destination = t2.Origin
+    JOIN Bookings b ON t1.TicketID = b.TicketID
+    WHERE b.BookingID = ${bookingID};
+  `;
+    console.log(data.rows);
+    return data.rows;
+    
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to find connecting tickets.');
+  }
+}
 
+export async function fetchCustomerIDWithBookingID(bookingID: number) {
+  try {
+    console.log('BookingID:', bookingID);
+    const data = await sql<Bookings>`
+    SELECT customerid
+    FROM Bookings 
+    WHERE BookingID = ${bookingID};
+  `;
+    console.log(data.rows);
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to find connecting tickets.');
+  }
+}
 
 export async function deleteCustomer(customerId: number): Promise<void> {
   try {

@@ -68,5 +68,5 @@ export default function Page() {
   }
 
   // Fetch data and render the component
-  return fetchAndRenderData();
+      return fetchAndRenderData();
 }
