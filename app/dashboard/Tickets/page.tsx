@@ -8,17 +8,20 @@ export default function Page() {
     revalidatePath('/dashboard/Tickets');
     try {
       const { customers, trains, tickets } = await fetchData();
+
+      tickets.sort((a, b) => a.ticketid - b.ticketid);
+
       return (
         <main>
-          <div className='top'>
-          <h1>Tickets</h1>
-          <div>
-            <Link href="/dashboard/Tickets/Create" className="button">
-              <span>Create New Ticket</span>
-            </Link>
+          <div className="top">
+            <h1>Tickets</h1>
+            <div>
+              <Link href="/dashboard/Tickets/Create" className="button">
+                <span>Create New Ticket</span>
+              </Link>
+            </div>
           </div>
-          </div>
-          <div className='Showing'>
+          <div className="Showing">
             {tickets.map(async (t) => {
               // Mapping asynchronously
               const foundTrain = trains.find(
@@ -28,49 +31,48 @@ export default function Page() {
                 t.ticketid,
               ); // Fetching booking count
               return (
-                <div className='Showing_Tile' key={t.ticketid}>
+                <div className="Showing_Tile" key={t.ticketid}>
                   <div className="Tile_Header">Ticket's ID: {t.ticketid}</div>
                   <table className="Showing_Table">
                     <tbody>
                       <tr>
-                      <td>Train's Type:</td>
-                      {foundTrain ? (
-                        <td>{foundTrain.type}</td>
-                      ) : (
-                        <td>Train not found</td>
-                      )}
+                        <td>Train's Type:</td>
+                        {foundTrain ? (
+                          <td>{foundTrain.type}</td>
+                        ) : (
+                          <td>Train not found</td>
+                        )}
                       </tr>
                       <tr>
-                      <td>Origin:</td>
-                      <td> {t.origin}</td>
+                        <td>Origin:</td>
+                        <td>{t.origin}</td>
                       </tr>
                       <tr>
-                        <td>Destination: </td>
+                        <td>Destination:</td>
                         <td>{t.destination}</td>
                       </tr>
                       <tr>
-                      <td>
-                        Departure Time: 
-                      </td>
-                      <td>{t.departure_time.toDateString()}{' '}
-                        {t.departure_time.toTimeString()}</td>
-                      </tr>
-                      <tr>
+                        <td>Departure Time:</td>
                         <td>
-                          Arrive Time:
-                       </td>
-                       <td>{t.arrival_time.toDateString()}{' '}
-                          {t.arrival_time.toTimeString()}</td>
+                          {t.departure_time.toDateString()}{' '}
+                          {t.departure_time.toTimeString()}
+                        </td>
                       </tr>
                       <tr>
-                        <td>Available: </td>
+                        <td>Arrive Time:</td>
+                        <td>
+                          {t.arrival_time.toDateString()}{' '}
+                          {t.arrival_time.toTimeString()}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Available:</td>
                         <td>{t.available}</td>
                       </tr>
                       <tr>
-                        <td>Bookings Count: </td>{' '}
+                        <td>Bookings Count:</td>
                         <td>{bookingCount}</td>
                       </tr>
-                      {/* Displaying booking count */}
                     </tbody>
                   </table>
                 </div>
