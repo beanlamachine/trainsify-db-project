@@ -64,7 +64,7 @@ export default function Page() {
                       </tr>
                       <tr>
                         <td>Available: </td>
-                        <td>{t.available - bookingCount}</td>
+                        <td>{t.available}</td>
                       </tr>
                       <tr>
                         <td>Bookings Count: </td>{' '}
