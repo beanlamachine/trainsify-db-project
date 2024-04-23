@@ -31,6 +31,13 @@ export async function createBooking(formData: FormData) {
   const bookingId = result.rows[0].bookingid;  // Extract the booking ID from the result
   console.log(bookingId);
 
+    // Decrement the 'available' field in the 'Tickets' table
+    await sql`
+    UPDATE Tickets
+    SET available = available - 1
+    WHERE ticketid = ${ticketid};
+  `;
+
   // Redirect after successfully creating the booking
   revalidatePath(`/dashboard/Bookings/${bookingId}/CreateConnecting`);
   redirect(`/dashboard/Bookings/${bookingId}/CreateConnecting`);
@@ -89,3 +96,5 @@ export async function createConnectingBooking(formData: FormData) {
     revalidatePath('/dashboard/Customers');
     redirect('/dashboard/Customers');
   }
+
+ 
