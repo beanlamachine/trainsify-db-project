@@ -38,14 +38,14 @@ export default async function Page({
           />
 
           <form action={createConnectingBooking}>
-            <div>
+          <div>
               <label
                 htmlFor="bookingid"
                 className="mb-2 block text-sm font-medium"
               >
-                You just created a booking with ID
+                Your new booking is under ID
               </label>
-              <div className="relative mt-2 rounded-md">
+              <div className="relative">
                 <div className="relative">
                   <input
                     readOnly={true}
@@ -58,9 +58,10 @@ export default async function Page({
                 </div>
               </div>
             </div>
-            <div>Previous Ticket Information</div>
             <div>
               {previousTicketInfo.map((ticket) => (
+                <div className='Showing_Tile'>
+                  <div className='Tile_Header'>Previous Ticket Information</div>
                 <table className="Showing_Table" key={ticket.ticketid}>
                   <tbody>
                     <tr>
@@ -90,12 +91,13 @@ export default async function Page({
                       <td>{ticket.available}</td>
                     </tr>
                   </tbody>
-                </table>
+                </table></div>
               ))}
             </div>
-            <p>
-              IF you want you can create another booking with a connecting train
-            </p>
+            <div className="border-solid border-1 border-black">
+            <div>
+              To create booking with a connecting train,
+            </div>
             {/* Ticket Information */}
             <div className="mb-4">
               <label
@@ -127,9 +129,10 @@ export default async function Page({
                 </select>
               </div>
             </div>
-            <Button type="submit">Create Booking</Button>
+            <Button type="submit">Create Connecting Booking</Button>
+            </div>
           </form>
-          <Link href="/dashboard" className="button">
+          <Link href="/dashboard" className="button mt-4">
             <span>I don't want to book a connecting train</span>
           </Link>
         </main>
