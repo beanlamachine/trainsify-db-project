@@ -90,7 +90,7 @@ export default function Form({ customers }: FormProps) {
         {bookingsData.map((booking) => (
           <div className='Showing_Tile' key={booking.bookingid}>
             <div className='Tile_Header'>Booking ID: {booking.bookingid}</div>
-            <table className='Showing_Table' >
+            <table>
               <tbody>
                 <tr>
                   <td>Train ID:</td>
