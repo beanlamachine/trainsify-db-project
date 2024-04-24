@@ -97,4 +97,16 @@ export async function createConnectingBooking(formData: FormData) {
     redirect('/dashboard/Customers');
   }
 
+  export async function deleteBooking(bookingid: number) {
+    console.log(bookingid);
+    try {
+      await sql.query(`DELETE FROM bookings WHERE bookingid = ${bookingid}`);
+    } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to delete customer.');
+    }
+    revalidatePath('/dashboard/Bookings');
+    redirect('/dashboard/Bookings');
+  }
+
  

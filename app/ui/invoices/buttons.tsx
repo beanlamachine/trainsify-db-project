@@ -23,6 +23,17 @@ export function DeleteCustomer({ customerid }: { customerid: number }) {
   );
 }
 
+export function DeleteBooking({ bookingid }: { bookingid: number }) {
+  return (
+    <Link
+      href={`/dashboard/Bookings/${bookingid}/CreateConnecting/delete`}
+      className=""
+    >
+      <TrashIcon className="w-5" />
+    </Link>
+  );
+}
+
 export function CreateInvoice() {
   return (
     <Link

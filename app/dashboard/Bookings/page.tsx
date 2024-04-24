@@ -1,6 +1,7 @@
 import { fetchBookings } from '@/app/lib/data';
 import Link from 'next/link';
 import { revalidatePath } from 'next/cache';
+import {  DeleteBooking } from '@/app/ui/invoices/buttons.tsx';
 export default function Page() {
   revalidatePath('/dashboard/Bookings');
   async function fetchAndRenderData() {
@@ -51,6 +52,9 @@ export default function Page() {
                     </tr>
                 </tbody>
                 </table>
+                <div className='top mt-4 mb-2'>
+                    <DeleteBooking bookingid={booking.bookingid} />
+                    </div>
               </div>
             ))}
           </div>
