@@ -93,3 +93,82 @@ td{
 text-overflow: ellipsis;
 white-space: nowrap;
 }
+
+.body {
+  font-family: 'Arial', sans-serif; /* Common, readable font */
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically center all items in the header */
+  justify-content: space-between; /* Distribute space between and around content items */
+  padding: 10px 20px; 
+  margin-top: 20px;
+}
+.image{
+  height: 175px;
+    width: auto;
+    position: absolute; /* Positions the logo absolutely within the header */
+    right: 50px; /* 20px from the right edge of the header */
+    top: 0px;
+}
+
+.footer {
+  color: #ffffff;
+  text-align: center;
+  padding: 12px 20px;
+  position: absolute;
+  bottom: 30px;
+  margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 81%;
+    padding-top: 7px;
+    
+}
+
+.main {
+  padding: 20px;
+  min-height: 80vh; /* Minimum height to push the footer down */
+  background-color: #ffffff; /* White background for the content area */
+  margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Defines two columns, each taking half of the container’s width */
+  grid-template-rows: 1fr 1fr; /* Defines two rows, each taking half of the container's height */
+  gap: 20px; /* Space between grid items */
+  width: 45vw; /* Adjust width as needed */
+  margin: 50px auto; /* Centers the grid horizontally and adds vertical spacing */
+  margin-top: 25px;
+}
+
+.grid-item {
+  background-color: #f0f0f0; /* Light grey background for each item */
+  border: 1px solid #ccc; /* Border for each item */
+  text-align: center; /* Center text inside each item */
+  padding: 20px;
+  display: block; /* Makes the content inside the grid item flexible */
+  justify-content: center; /* Horizontally centers the content */
+  align-items: center; /* Vertically centers the content */
+  font-size: 15pt;
+}
+.icon{
+  width: 230px;
+  display: block;
+}
+
+.icon_div{
+  display: flex;
+  width: 100%;
+  justify-content: center; /* Horizontally centers the content */
+  align-items: center; /* Vertically centers the content */
+}
+
+

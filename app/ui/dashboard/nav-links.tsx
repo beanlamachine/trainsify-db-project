@@ -3,7 +3,8 @@ import {
   HomeIcon,
   TicketIcon,
   BuildingStorefrontIcon,
-  CalendarDaysIcon
+  CalendarDaysIcon,
+  PaperAirplaneIcon
 } from '@heroicons/react/24/outline';
 
 // Map of links to display in the side navigation.
@@ -15,7 +16,7 @@ const links = [
     href: '/dashboard/Bookings',
     icon: CalendarDaysIcon,
   },
-  { name: 'Trains', href: '/dashboard/Trains', icon: TicketIcon },
+  { name: 'Trains', href: '/dashboard/Trains', icon: PaperAirplaneIcon },
   { name: 'Customers', href: '/dashboard/Customers', icon: UserGroupIcon },
   { name: 'Tickets', href: '/dashboard/Tickets', icon: TicketIcon },
 ];
