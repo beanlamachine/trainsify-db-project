@@ -60,38 +60,38 @@ export default async function Page({
             </div>
             <div>
               {previousTicketInfo.map((ticket) => (
-                <div className='Showing_Tile'>
-                  <div className='Tile_Header'>Previous Ticket Information</div>
-                <table className="Showing_Table" key={ticket.ticketid}>
-                  <tbody>
-                    <tr>
-                      <td>Origin:</td>
-                      <td>{ticket.origin}</td>
-                    </tr>
-                    <tr>
-                      <td>Destination:</td>
-                      <td>{ticket.destination}</td>
-                    </tr>
-                    <tr>
-                      <td>Departure Time:</td>
-                      <td>
-                        {ticket.departure_time.toDateString()}{' '}
-                        {ticket.departure_time.toTimeString()}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Arrive Time:</td>
-                      <td>
-                        {ticket.arrival_time.toDateString()}{' '}
-                        {ticket.arrival_time.toTimeString()}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Available:</td>
-                      <td>{ticket.available}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className="Showing_Tile" key={ticket.ticketid}>
+                  <div className="Tile_Header">Previous Ticket Information</div>
+                  <table className="Showing_Table">
+                    <tbody>
+                      <tr>
+                        <td>Origin:</td>
+                        <td>{ticket.origin}</td>
+                      </tr>
+                      <tr>
+                        <td>Destination:</td>
+                        <td>{ticket.destination}</td>
+                      </tr>
+                      <tr>
+                        <td>Departure Time:</td>
+                        <td>
+                          {ticket.departure_time.toDateString()}{' '}
+                          {ticket.departure_time.toTimeString()}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Arrive Time:</td>
+                        <td>
+                          {ticket.arrival_time.toDateString()}{' '}
+                          {ticket.arrival_time.toTimeString()}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Available:</td>
+                        <td>{ticket.available}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               ))}
             </div>
