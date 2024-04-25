@@ -43,7 +43,7 @@ export default async function Page({
                 htmlFor="bookingid"
                 className="mb-2 block text-sm font-medium"
               >
-                You just created a booking with ID
+                Your new booking is under ID
               </label>
               <div className="relative mt-2 rounded-md">
                 <div className="relative">
@@ -58,9 +58,10 @@ export default async function Page({
                 </div>
               </div>
             </div>
-            <div>Previous Ticket Information</div>
             <div>
               {previousTicketInfo.map((ticket) => (
+                <div className='Showing_Tile'>
+                  <div className='Tile_Header'>Previous Ticket Information</div>
                 <table className="Showing_Table" key={ticket.ticketid}>
                   <tbody>
                     <tr>
@@ -91,6 +92,7 @@ export default async function Page({
                     </tr>
                   </tbody>
                 </table>
+                </div>
               ))}
             </div>
             <p>
@@ -129,7 +131,7 @@ export default async function Page({
             </div>
             <Button type="submit">Create Booking</Button>
           </form>
-          <Link href="/dashboard" className="button">
+          <Link href="/dashboard" className="button mt-4">
             <span>I don't want to book a connecting train</span>
           </Link>
         </main>
